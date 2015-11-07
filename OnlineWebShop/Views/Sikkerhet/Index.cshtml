@@ -1,0 +1,63 @@
+﻿@model webshop.Models.bruker
+@{
+
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+@using (Html.BeginForm())
+{
+  @Html.AntiForgeryToken()
+  @Html.ValidationSummary(true)
+
+  <fieldset>
+    <legend>Logg inn</legend>
+
+
+
+    @if (ViewBag.LoggetInn)
+        {
+      <p style="color:green">Du er innlogget</p>
+
+            <div>
+              @Html.ActionLink("Logg av", "Loggav")<br />
+              @Html.ActionLink("Tilbake til Lista", "Index")<br />
+              @Html.ActionLink("Minside", "InnLoggetSide")<br />
+          
+            </div>
+    }
+    else
+    {
+      <div class="editor-label">
+        @Html.LabelFor(model => model.Navn)
+      </div>
+            <div class="editor-field">
+              @Html.EditorFor(model => model.Navn)
+              @Html.ValidationMessageFor(model => model.Navn)
+            </div>
+            <div class="editor-label">
+              @Html.LabelFor(model => model.Passord)
+            </div>
+            <div class="editor-field">
+              @Html.EditorFor(model => model.Passord)
+              @Html.ValidationMessageFor(model => model.Passord)
+            </div>
+            <p>
+              <input type="submit" value="Logg inn" />
+            </p>
+            <p style="color:red">Ikke innlogget</p>
+            <div>
+              @Html.ActionLink("Tilbake til Lista", "Index")<br />
+              @Html.ActionLink("Registrer deg som bruker", "Registrer")<br />
+            </div>
+
+    }
+  </fieldset>
+
+}
+
+<div>
+</div>
+

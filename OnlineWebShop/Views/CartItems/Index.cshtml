@@ -1,0 +1,50 @@
+﻿@model IEnumerable<webshop.Models.CartItem>
+
+@{
+  ViewBag.Title = "show customer cart information";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    
+    <table class="table">
+        <tr class="active">
+            <th>
+          
+              In the your cart:
+           </th>
+        </tr>
+      </table><table class="table">
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vare.ProduktNavn)
+            </td>
+          <td>
+           X @Html.DisplayFor(modelItem => item.Quantity)
+          </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id=item.ItemId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ItemId })
+            </td>
+        </tr>
+       
+    }
+                <tr>
+                  <td>
+                    Total: @Model.Sum(v => Convert.ToDouble(v.UnitSum)) Kr
+                  </td>
+                  <td>
+                    @Html.ActionLink("Return to shop", "../Store/Index",
+                new { @class = "btn" })
+
+                  </td>
+                  <td>
+                    @Html.ActionLink("Buy Now!", "checkout",
+
+                new { @class = "btn" },
+                new { id = @Model.GroupBy(i=>i.CartId)})
+                  </td>
+                </tr>
+    </table>
+

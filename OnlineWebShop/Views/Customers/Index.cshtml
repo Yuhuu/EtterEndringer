@@ -1,0 +1,45 @@
+﻿@model IEnumerable<webshop.Models.dbBruker>
+
+@{
+    ViewBag.Title = "show Customers";
+}
+  
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Navn)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Adresse)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Epost)
+            </th>*@
+            @*<th>
+                @Html.DisplayNameFor(model => model.Passord)
+            </th>*@
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Navn)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Adresse)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Epost)
+            </td>*@
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Passord)
+            </td>*@
+            <td>
+                @Html.ActionLink("Details", "Details", new { id=item.Navn }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Navn })|
+                @Html.ActionLink("Edit", "Edit", new { id = item.Navn })
+            </td>
+        </tr>
+    }
+    </table>

@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Electronic Store</a>
+      </div>
+      <div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav">
+            <li><a href="#section1"></a></li>
+            <li><a href="#section2"></a></li>
+            <li><a href="#section3"></a></li>
+            <li><a href="#section3"></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="jumbotron">
+      <h2 class="masthead-brand">Electronic STORE</h2>
+      <nav class="nav nav-masthead-brand">
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a href="/Home/Indeks">Home</a></li><li>
+            <a href="/Store/Index">Store</a></li><li>
+            <a href="/Customers/Index">Admin(See users)</a></li>
+          <li>
+            <a href="/Produkt/Index">Admin(Edit produkt infor)</a>
+          </li><li>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Login or register<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+
+              <li><a href="/Sikkerhet/Index">Logg inn</a></li>
+              <li><a href="/Sikkerhet/Registrer">Registrer deg</a></li>
+           
+            </ul></li><li>
+            <a href="/CartItems/Index" class="btn btn-lg"><span class="glyphicon glyphicon-shopping-cart"></span> Buy</a></li></ul>
+      </nav>       
+    </div>
+    <div id="main">
+        @RenderBody()
+    </div>
+    <div id="footer">
+      <h4>Admin? Login her:</h4>
+      <a href="/Produkt/NyVare">E-post Bruker admin</a><br />
+    </div>
+    </div>
+  @RenderSection("scripts", required: false)
+</body>
+</html>
