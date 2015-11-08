@@ -1,7 +1,8 @@
-﻿using System.Data.Entity;
+﻿using OnlineWebShop.DAL;
+using System.Data.Entity;
 using System.Web.Mvc;
 using System.Web.Routing;
-using webshop.Models;
+
 
 namespace webshop
 {

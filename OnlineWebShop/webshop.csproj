@@ -142,15 +142,10 @@
     <Compile Include="Controllers\ProduktController.cs" />
     <Compile Include="Controllers\SikkerhetController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
-    <Compile Include="Logic\DB.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\bruker.cs" />
-    <Compile Include="Models\DbContext.cs" />
-    <Compile Include="Models\CartItem.cs" />
-    <Compile Include="Models\OnlineShopDbInitializer.cs" />
-    <Compile Include="Models\ShoppingCart.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +187,16 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{fb71b5b4-a63a-4703-88d3-ac21e366250e}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MODEL\MODEL.csproj">
+      <Project>{59fe94dc-0498-448a-b6cc-3ad61eed36c5}</Project>
+      <Name>MODEL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

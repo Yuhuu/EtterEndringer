@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLL;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -7,51 +8,36 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using webshop.Models;
-using webshop.Logic;
 
 namespace webshop.Controllers
 {
     public class CartItemsController : Controller
     {
-        private OnlineStoreEntities db = new OnlineStoreEntities();
+        
 
         // GET: CartItems
         public ActionResult Index()
         {
-      var db = new DB();
-      var cart = new ShoppingCart();
-      var cartItem = cart.GetCartItems();
+        var cart = new ShoppingCartLogic();
+        var cartItem = cart.GetCartItems();
             return View(cartItem.ToList());
         }
 
     // GET: CartItems/Details/5
     public ActionResult Details(string id)
     {
-      if (id == null)
-      {
-        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-      }
-      CartItem cartItem = db.CartItems.Find(id);
-      if (cartItem == null)
-      {
-        return HttpNotFound();
-      }
+      var cart = new ShoppingCartLogic();
+      var cartItem = cart.findCartItem(id);
       return View(cartItem);
+
     }
      
         // GET: CartItems/Delete/5
         public ActionResult Delete(string id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CartItem cartItem = db.CartItems.Find(id);
-            if (cartItem == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cartItem);
+      var cart = new ShoppingCartLogic();
+      var cartItem = cart.Delete(id);
+      return View(cartItem);
         }
 
         // POST: CartItems/Delete/5
@@ -59,15 +45,14 @@ namespace webshop.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            CartItem cartItem = db.CartItems.Find(id);
-            db.CartItems.Remove(cartItem);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+      var cart = new ShoppingCartLogic();
+      var cartItem = cart;
+      return View(cartItem);
+      return RedirectToAction("Index");
     }
     public ActionResult AddToCart(int id)
     {
-      var db = new DB();
-      var cart = new ShoppingCart();
+      var cart = new ShoppingCartLogic();
       cart.AddToCart(id);
       var cartItem = cart.GetCartItems();
       return View(cartItem);
@@ -75,9 +60,7 @@ namespace webshop.Controllers
 
     public ActionResult Checkout()
     {
-
-      var db = new DB();
-      var cart = new ShoppingCart();
+      var cart = new ShoppingCartLogic();
       var cartItem = cart.GetCartItems();
 
       if (Session["InnLogget"] != null)
@@ -97,8 +80,7 @@ namespace webshop.Controllers
 
     public ActionResult Kvittering()
     {
-      var db = new DB();
-      var cart = new ShoppingCart();
+      var cart = new ShoppingCartLogic();
       var cartItem = cart.GetCartItems();
 
       if (Session["InnLogget"] != null)
@@ -114,16 +96,13 @@ namespace webshop.Controllers
         return RedirectToAction("../Sikkerhet/Index");
       }
     }
-  
-
-
-    protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+    //protected override void Dispose(bool disposing)
+    //    {
+    //        if (disposing)
+    //        {
+    //            db.Dispose();
+    //        }
+    //        base.Dispose(disposing);
+    //    }
     }
 }

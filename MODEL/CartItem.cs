@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 
-namespace webshop.Models
+namespace OnlineWebShop.MODEL
 {
   //med virtual vare list
   public class CartItem

@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Data;
+using System.Net;
 using System.Web;
+using OnlineWebShop.MODEL;
 
-namespace webshop.Models
+namespace OnlineWebShop.DAL
 {
-  public class ShoppingCart : IDisposable
+  public class ShoppingCartDAL
   {
-    public string ShoppingCartId { get; set; }
-
     private OnlineStoreEntities _db = new OnlineStoreEntities();
-
     public const string CartSessionKey = "CartId";
+
+    private string ShoppingCartId;
 
     public void AddToCart(int id)
     {
@@ -23,21 +26,21 @@ namespace webshop.Models
           && c.VareId == id);
       if (cartItem == null)
       {
-                // Create a new cart item if no cart item exists.                 
-                cartItem = new CartItem
-                {
-                    ItemId = Guid.NewGuid().ToString(),
-                    VareId = id,
-                    CartId = ShoppingCartId,
-                    Vare = _db.Vareer.SingleOrDefault(
-                   p => p.VareId == id),
-                    Quantity = 1,
-                    UnitSum = _db.Vareer.SingleOrDefault(
-                   p => p.VareId == id).Pris,
-                };
+        // Create a new cart item if no cart item exists.                 
+        cartItem = new CartItem
+        {
+          ItemId = Guid.NewGuid().ToString(),
+          VareId = id,
+          CartId = ShoppingCartId,
+          Vare = _db.Vareer.SingleOrDefault(
+           p => p.VareId == id),
+          Quantity = 1,
+          UnitSum = _db.Vareer.SingleOrDefault(
+           p => p.VareId == id).Pris,
+        };
 
         _db.CartItems.Add(cartItem);
-  
+
       }
       else
       {
@@ -49,14 +52,12 @@ namespace webshop.Models
       }
       _db.SaveChanges();
     }
-
-    public void Dispose()
-    {
-      if (_db != null)
-      {
-        _db.Dispose();
-        _db = null;
-      }
+    public CartItem findCartItem(String id) {
+      var db = new OnlineStoreEntities();
+  
+      CartItem cartItem = db.CartItems.Find(id);
+ 
+      return cartItem;
     }
 
     public string GetCartId()
@@ -80,9 +81,27 @@ namespace webshop.Models
     public List<CartItem> GetCartItems()
     {
       ShoppingCartId = GetCartId();
-
       return _db.CartItems.Where(
           c => c.CartId == ShoppingCartId).ToList();
     }
+
+    public CartItem Delete(String id)
+    {
+      var db = new OnlineStoreEntities();
+   
+      CartItem cartItem = db.CartItems.Find(id);
+  
+      return cartItem;
+
+    }
+
+      public void DeleteConfirmed(String id)
+    {
+      var db = new OnlineStoreEntities();
+       CartItem cartItem = db.CartItems.Find(id);
+       db.CartItems.Remove(cartItem);
+       db.SaveChanges();}
+     }
   }
-}
+
+

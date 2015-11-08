@@ -7,7 +7,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using webshop.Models;
-using webshop.Logic;
 
 namespace webshop.Controllers
 {

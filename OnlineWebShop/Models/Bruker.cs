@@ -9,40 +9,36 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace webshop.Models
 {
-    public class bruker
-    {
-    [Required(ErrorMessage="Trenger et navn")]
+  public class bruker
+  {
+    [Required(ErrorMessage = "Trenger et navn")]
     public string Navn { get; set; }
-    //[Required(ErrorMessage = "Trenger et Epost")]
-    //public string Epost { get; set; }
-    //[Required(ErrorMessage = "Trenger et Address")]
-    //public string Address { get; set; }
+
     [Required(ErrorMessage = "Trenger et passord")]
     public string Passord { get; set; }
 
   }
 
-    public class dbBruker
+  public class dbBruker
+  {
+    [Key]
+    public string Navn { get; set; }
+    public byte[] Passord { get; set; }
+
+  }
+
+  public class BrukerContext : DbContext
+  {
+    public BrukerContext() : base("name=Bruker")
     {
-        [Key]
-        public string Navn { get; set; }
-        public byte[] Passord { get; set; }
-        
+      Database.CreateIfNotExists();
     }
 
-    public class BrukerContext : DbContext
+    public DbSet<dbBruker> Brukere { get; set; }
+
+    protected override void OnModelCreating(DbModelBuilder modelBuilder)
     {
-        public BrukerContext() : base("name=Bruker")
-        {
-            Database.CreateIfNotExists();
-        }
-
-        public DbSet<dbBruker> Brukere { get; set; }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-        }
+      modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
     }
-
+  }
 }
