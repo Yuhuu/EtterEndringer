@@ -15,8 +15,9 @@ namespace webshop.Models
     public string Navn { get; set; }
 
     [Required(ErrorMessage = "Trenger et passord")]
-    public string Passord { get; set; }
 
+    public string Passord { get; set; }
+    public EmailAddressAttribute address { get; set; }
   }
 
   public class dbBruker
@@ -24,6 +25,7 @@ namespace webshop.Models
     [Key]
     public string Navn { get; set; }
     public byte[] Passord { get; set; }
+    public EmailAddressAttribute address { get; set; }
 
   }
 
