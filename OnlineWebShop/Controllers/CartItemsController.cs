@@ -33,10 +33,10 @@ namespace webshop.Controllers
     }
      
         // GET: CartItems/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string item)
         {
       var cart = new ShoppingCartLogic();
-      var cartItem = cart.Delete(id);
+      var cartItem = cart.Delete(item);
       return View(cartItem);
         }
 
@@ -48,7 +48,7 @@ namespace webshop.Controllers
       var cart = new ShoppingCartLogic();
       var cartItem = cart;
       return View(cartItem);
-      return RedirectToAction("Index");
+      RedirectToAction("Index");
     }
     public ActionResult AddToCart(int id)
     {
