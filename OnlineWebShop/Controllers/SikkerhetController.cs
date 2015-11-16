@@ -11,6 +11,7 @@ namespace webshop.Controllers
     public class SikkerhetController : Controller
     {
         // GET: Sikkerhet
+        // make sure that the system know who is innlogget
         public ActionResult Index()
         {
             if (Session["InnLogget"] == null)
@@ -48,6 +49,8 @@ namespace webshop.Controllers
         }
 
         [HttpPost]
+
+        // same function as create
         public ActionResult Registrer(bruker innBruker)
         {
             if (!ModelState.IsValid)
@@ -70,6 +73,7 @@ namespace webshop.Controllers
             }       
         }
 
+    // sikkerhet controll
         public static byte[] konvertTilHash(string innPassord)
         {
             byte[] innData, utData;

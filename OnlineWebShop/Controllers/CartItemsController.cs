@@ -47,8 +47,7 @@ namespace webshop.Controllers
         {
       var cart = new ShoppingCartLogic();
       var cartItem = cart;
-      return View(cartItem);
-      RedirectToAction("Index");
+      return RedirectToAction("Index");
     }
     public ActionResult AddToCart(int id)
     {
