@@ -14,12 +14,17 @@ namespace BLL
     {
       var dal = new ShoppingCartDAL();
       List<CartItem> allCart = dal.GetCartItems();
+
+      List<CartItem> allCart = dal.GetCartItems();
+
       return allCart;
     }
 
     public void AddToCart(int id)
     {
       var dal = new ShoppingCartDAL();
+      List<CartItem> allCart = dal.GetCartItems();
+
       dal.AddToCart(id);
     }
 

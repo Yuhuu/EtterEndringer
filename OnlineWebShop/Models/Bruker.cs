@@ -15,7 +15,6 @@ namespace webshop.Models
     public string Navn { get; set; }
 
     [Required(ErrorMessage = "Trenger et passord")]
-    [Required(ErrorMessage = "Trenger et passord")]
     public string Passord { get; set; }
     public EmailAddressAttribute address { get; set; }
   }
