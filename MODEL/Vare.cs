@@ -15,5 +15,10 @@ namespace OnlineWebShop.MODEL
       public string ProduktMerke { get; set; }
       public decimal Pris { get; set; }
       public int Antall { get; set; }
+
+    public string ProduktDescription { get; set; }
+
+
+
   }
 }
