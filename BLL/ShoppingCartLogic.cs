@@ -21,7 +21,6 @@ namespace BLL
     public void AddToCart(int id)
     {
       var dal = new ShoppingCartDAL();
-
       dal.AddToCart(id);
     }
 

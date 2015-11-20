@@ -20,21 +20,22 @@ namespace OnlineWebShop.DAL
     {
       // Retrieve the product from the database.           
       ShoppingCartId = GetCartId();
-
       var cartItem = _db.CartItems.SingleOrDefault(
           c => c.CartId == ShoppingCartId
           && c.VareId == id);
       if (cartItem == null)
       {
-        // Create a new cart item if no cart item exists.                 
+        // Create a new cart item if no cart item exists.    
+       var productItem = new ProductDAL();
+       MODEL.Vare enVare = this.getMODEL(productItem.getVareWithID(id));
+        // MODEL.Vare product = thisitem;
         cartItem = new CartItem
         {
           ItemId = Guid.NewGuid().ToString(),
           VareId = id,
           CartId = ShoppingCartId,
-          Vare = _db.Vareer.SingleOrDefault(
-           p => p.VareId == id),
           Quantity = 1,
+          Vare = enVare,
           UnitSum = _db.Vareer.SingleOrDefault(
            p => p.VareId == id).Pris,
         };
@@ -59,7 +60,18 @@ namespace OnlineWebShop.DAL
  
       return cartItem;
     }
-
+    public MODEL.Vare getMODEL(Vare vare)
+    {
+      using (var db = new OnlineStoreEntities())
+      {
+        var enVare = new MODEL.Vare();
+        enVare.Pris = vare.Pris;
+        enVare.ProduktNavn = vare.ProduktNavn;
+        enVare.ProduktMerke = vare.ProduktMerke;
+        enVare.VareId = vare.VareId;
+        return enVare;
+      }
+    }
     public string GetCartId()
     {
       if (HttpContext.Current.Session[CartSessionKey] == null)

@@ -11,16 +11,15 @@ using System.Threading.Tasks;
 
 namespace OnlineWebShop.DAL
 {
-  public class Varer
+  public class Vare
   {
     [Key]
     public int VareId { get; set; }
     public string ProduktNavn { get; set; }
     public string ProduktMerke { get; set; }
     public decimal Pris { get; set; }
-    public int Antall { get; set; }
-
     public string ProduktDescription { get; set; }
+    public string PicUrl { get; set; }
   }
   public partial class OnlineStoreEntities : DbContext
   {
@@ -29,7 +28,7 @@ namespace OnlineWebShop.DAL
       {
         // Database.CreateIfNotExists();
       }
-      //public DbSet<Kunde> Kunder { get; set; }
+     // public DbSet<Kunde> Kunder { get; set; }
       public DbSet<Vare> Vareer { get; set; }
       public DbSet<CartItem> CartItems { get; set; }
       protected override void OnModelCreating(DbModelBuilder modelBuilder)

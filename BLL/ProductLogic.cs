@@ -1,31 +1,28 @@
-﻿using OnlineWebShop.MODEL;
+﻿
 using OnlineWebShop.DAL;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OnlineWebShop.MODEL;
 
 
 namespace BLL
 {
   public class ProductLogic
   {
-    public List<Vare> getAll()
+    public List<OnlineWebShop.MODEL.Vare> getAll()
     {
       var ProductDAL = new ProductDAL();
-      List<Vare> allProduct = ProductDAL.getAll();
+      List<OnlineWebShop.MODEL.Vare> allProduct = ProductDAL.getAll();
       return allProduct;
     }
-    public bool insertNewProduct(Vare vare)
+    public bool insertNewProduct(OnlineWebShop.DAL.Vare vare)
     {
       var ProductDAL = new ProductDAL();
       return ProductDAL.insertNewProduct(vare);
     }
-    public bool editProduct(int id, Vare innVare)
+    public OnlineWebShop.DAL.Vare editProduct(int? id)
     {
       var ProductDAL = new ProductDAL();
-      return ProductDAL.editProduct(id, innVare);
+      return ProductDAL.editProduct(id);
     }
     public bool deleteProduct(int slettId)
     {

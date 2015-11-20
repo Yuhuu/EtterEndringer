@@ -14,24 +14,14 @@ namespace webshop.Controllers
         public ActionResult Index()
         {
          var product = new ProductLogic();
-         List<Vare> allproduct = product.getAll();
-         return View(allproduct);
+         return View(product.getAll());
     }
 
-    //public ActionResult Edit(int? id)
-    //{
-    //  if (id == null)
-    //  {
-    //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-    //  }
-    //  var db = new OnlineStoreEntities();
-    //  Vare vare = db.Vareer.Find(id);
-    //  if (vare == null)
-    //  {
-    //    return HttpNotFound();
-    //  }
-    //  return View(vare);
-    //}
+    public ActionResult Edit(int? id)
+    {
+      var product = new ProductLogic();
+      return View(product.editProduct(id));
+    }
 
     //// POST: ShoppingCart/Edit/5
     //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -58,7 +48,7 @@ namespace webshop.Controllers
         }
 
         [HttpPost]
-        public ActionResult NyVare(Vare vare)
+        public ActionResult NyVare(OnlineWebShop.DAL.Vare vare)
         {
             var db = new ProductLogic();
             if(db.insertNewProduct(vare))

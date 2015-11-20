@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using webshop.Models;
 using System;
 using BLL;
-using OnlineWebShop.MODEL;
 
 namespace webshop.Controllers
 {
@@ -14,8 +13,8 @@ namespace webshop.Controllers
         public ActionResult Index()
         {
          var db = new ProductLogic();
-         List<Vare> alleBestillinger = db.getAll();
-         return View(alleBestillinger);
+     //    List<OnlineWebShop.MODEL.Vare> alleBestillinger = db.getAll();
+         return View(db.getAll());
         }
   }
 }

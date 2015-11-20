@@ -49,7 +49,6 @@ namespace webshop.Controllers
         }
 
         [HttpPost]
-
         // same function as create
         public ActionResult Registrer(bruker innBruker)
         {

@@ -1,9 +1,10 @@
-﻿using System;
+﻿using OnlineWebShop.MODEL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
-using System.Threading.Tasks;
-using OnlineWebShop.MODEL;
+
 
 
 
@@ -11,16 +12,15 @@ namespace OnlineWebShop.DAL
 {
   public class ProductDAL
   {
-   public List<Vare> getAll()
+   public List<MODEL.Vare> getAll()
     {
       using (var db = new OnlineStoreEntities())
       {
-        List<Vare> VarerFraDb = db.Vareer.ToList();
-        List<Vare> allProduct = new List<Vare>();
-        foreach (var vare in VarerFraDb)
+        List<Vare> VareFraDb = db.Vareer.ToList();
+        List<MODEL.Vare> allProduct = new List<MODEL.Vare>();
+        foreach (var vare in VareFraDb)
         {
-          var enVare = new Vare();
-          enVare.Antall = vare.Antall;
+          var enVare = new MODEL.Vare();
           enVare.Pris = vare.Pris;
           enVare.ProduktNavn = vare.ProduktNavn;
           enVare.ProduktMerke = vare.ProduktMerke;
@@ -28,21 +28,31 @@ namespace OnlineWebShop.DAL
           allProduct.Add(enVare);
         }
         return allProduct;
+        //return VareFraDb;
       }
     }
 
-   public bool insertNewProduct(Vare NyProdukt)
+    public Vare getVareWithID(int id)
+    {
+      using (var db = new OnlineStoreEntities()) {
+        return db.Vareer.SingleOrDefault(
+             p => p.VareId == id);
+        }
+    }
+    public bool insertNewProduct(Vare NyProdukt)
     {
       var db = new OnlineStoreEntities();
       using (var dbTransaksjon = db.Database.BeginTransaction())
       {
         var nyVare = new Vare()
-        {   // en annen måte å initsiere attributter i en klasse når den
+        {  
+          // en annen måte å initsiere attributter i en klasse når den
             //instansieres (må ikke ha konstruktør for å gjøre dette)
-          Antall = NyProdukt.Antall,
           ProduktNavn = NyProdukt.ProduktNavn,
           ProduktMerke = NyProdukt.ProduktMerke,
-          Pris = NyProdukt.Pris
+          Pris = NyProdukt.Pris,
+          PicUrl = NyProdukt.PicUrl,
+          ProduktDescription = NyProdukt.ProduktDescription
         };
         try
         {
@@ -61,13 +71,51 @@ namespace OnlineWebShop.DAL
 
     public bool deleteProduct(int slettId)
     {
+
       return true;
     }
 
-    public bool editProduct(int id, Vare innProduct)
+    public Vare editProduct(int? id)
     {
-      return true;
+      if (id == null)
+      {
+        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+      }
+      var db = new OnlineStoreEntities();
+      Vare vare = db.Vareer.Find(id);
+      if (vare == null)
+      {
+        return HttpNotFound();
+      }
+      return vare;
     }
 
+    private Vare HttpNotFound()
+    {
+      throw new NotImplementedException();
+    }
+
+    //public Vare getMODEL(Vare vare)
+    //{
+    //  using (var db = new OnlineStoreEntities())
+    //  {
+    //    var enVare = new MODEL.Vare();
+    //    enVare.Pris = vare.Pris;
+    //    enVare.ProduktNavn = vare.ProduktNavn;
+    //    enVare.ProduktMerke = vare.ProduktMerke;
+    //    enVare.VareId = vare.VareId;
+    //    return enVare;
+    //  }
+    //}
+  }
+
+  internal class HttpStatusCodeResult : Vare
+  {
+    private HttpStatusCode badRequest;
+
+    public HttpStatusCodeResult(HttpStatusCode badRequest)
+    {
+      this.badRequest = badRequest;
+    }
   }
 }

@@ -31,7 +31,6 @@ namespace webshop.Controllers
       return View(cartItem);
 
     }
-     
         // GET: CartItems/Delete/5
         public ActionResult Delete(string item)
         {
@@ -81,7 +80,6 @@ namespace webshop.Controllers
     {
       var cart = new ShoppingCartLogic();
       var cartItem = cart.GetCartItems();
-
       if (Session["InnLogget"] != null)
       {
         Session["InnLogget"] = true;
